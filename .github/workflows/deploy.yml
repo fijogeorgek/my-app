@@ -33,9 +33,8 @@ jobs:
 
       - name: Prepare for deployment
         run: |
-          mkdir deploy
-          cp -r build package.json package-lock.json deploy/
-          cd deploy && npm ci --production
+          cp -r build package.json package-lock.json app.cjs ./
+          npm ci --production
 
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -43,5 +42,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./deploy/ # Deploy the prepared directory
+          local-dir: ./ # Deploy the prepared directory
           server-dir: / # Adjust this to your server path
