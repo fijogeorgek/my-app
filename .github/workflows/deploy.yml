@@ -32,7 +32,7 @@ jobs:
 
       - name: Prepare for deployment
         run: |
-          cp -r build ./
+          cp -r build package.json package-lock.json app.cjs ./
           npm ci --production
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
