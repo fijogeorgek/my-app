@@ -1,26 +1,21 @@
 name: Build and Deploy SvelteKit (Node Adapter) to FTP
-
-on:
+'on':
   push:
-    branches: [main] # Trigger the action on push to main branch
-
+    branches:
+      - main
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # or your preferred Node.js version
-
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
-
       - name: Build project
         run: npm run build
-
       - name: Create app.cjs
         run: |
           cat << EOF > app.cjs
@@ -30,17 +25,16 @@ jobs:
               }
           loadApp();
           EOF
-
       - name: Prepare for deployment
         run: |
-          cp -r build package.json package-lock.json app.cjs ./
+          mv build/* ./
+          mv app.cjs ./
           npm ci --production
-
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./ # Deploy the prepared directory
-          server-dir: / # Adjust this to your server path
+          server: '${{ secrets.FTP_SERVER }}'
+          username: '${{ secrets.FTP_USERNAME }}'
+          password: '${{ secrets.FTP_PASSWORD }}'
+          local-dir: ./
+          server-dir: /
