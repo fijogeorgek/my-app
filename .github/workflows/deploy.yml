@@ -23,7 +23,7 @@ jobs:
 
       - name: Create app.cjs
         run: |
-          cat << EOF > build/app.cjs
+          cat << EOF > app.cjs
           // Your custom app.cjs code here
           async function loadApp() {
               await import("./index.js");
