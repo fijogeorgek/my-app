@@ -32,9 +32,8 @@ jobs:
 
       - name: Prepare for deployment
         run: |
-          cp -r package.json app.cjs ./
-          cd build
-          cp -r build ./
+          mv package.json app.cjs ./
+          mv build/* ./
           
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
