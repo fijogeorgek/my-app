@@ -44,4 +44,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./deploy/ # Deploy the prepared directory
-          server-dir: /home/qa/sveltelinkedin2/app1 # Adjust this to your server path
+          server-dir: /home/qa/sveltelinkedin2/app1/ # Adjust this to your server path
